@@ -1,0 +1,61 @@
+<template>
+	<div class="row">
+		<div class="box">
+			<div class="status">
+				<RedGreenCircle />
+				<LocalRemote />
+
+			</div>
+			<div class="status">
+				<RedGreenCircle />
+				<RunStop />
+			</div>
+			<SwitchButton />
+		</div>
+
+
+
+	</div>
+
+</template>
+
+<script>
+	import LocalRemote from './LocalRemote.vue'
+	import RunStop from './RunStop.vue'
+	import RedGreenCircle from './RedGreenCircle.vue'
+	import SwitchButton from './SwitchButton.vue'
+
+	export default {
+		name: 'switch-component',
+		components: {
+			LocalRemote,
+			RedGreenCircle,
+			RunStop,
+			SwitchButton
+		}
+	}
+</script>
+
+<style>
+	.status {
+		display: flex;
+		align-items: center;
+	}
+
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		margin-right: -.75rem;
+		margin-left: -.75rem;
+	}
+
+	.box {
+		width: 160px;
+		padding: 5px;
+		margin: 10px;
+		border-radius: 5px;
+		background-color: #111516;
+		color: #00e676;
+		box-shadow: 0 .125rem .3rem rgba(0, 0, 0, .85) !important;
+	}
+</style>
