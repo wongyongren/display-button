@@ -1,21 +1,23 @@
 <template>
-	<div class="status" v-if="!(switchValue )">
-	  <span class="roundS"></span>
+
+	<div class="status" v-if="!(mode === 'run' )">
+		<span class="roundS"></span>
 	</div>
 	<div class="status" v-else>
-	  <span class="roundR"></span>
+		<span class="roundR"></span>
 	</div>
 </template>
 
 <script>
+	import SwitchButton from './SwitchButton.vue'
+
 	export default {
-		name: 'switch-component',
-		data: function() {
-			return {
-				switchValue: false
-			}
-		},
+		name: 'app',
+		props: ['mode'],
+		components: {
+			SwitchButton
 		}
+	}
 </script>
 
 <style>
@@ -28,7 +30,7 @@
 		display: inline-block;
 		z-index: 5;
 	}
-	
+
 	.roundS {
 		width: 60px;
 		height: 60px;

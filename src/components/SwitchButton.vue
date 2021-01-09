@@ -1,125 +1,76 @@
-<template id="switch-button">
-	<div class="switch-button-control">
-		<div class="switch-button" :class="{ enabled: isEnabled }" @click="toggle" :style="{'--color': color}">
-			<div class="button"></div>
-		</div>
-		<div class="switch-button-label">
-			<slot></slot>
-		</div>
-	</div>
+<template >
+  <div class="toggle-wrapper">
+    <label class="toggle">
+      <input 
+        type="checkbox" 
+        :checked="(mode === 'run') ? 'checked' : false" 
+        @change="$emit('toggle')"
+      />
+      <span class="toggler round"></span>
+    </label>
+  </div>
 </template>
 
 <script>
-	import Vue from 'vue'
-	Vue.component("switch-button", {
-		template: "#switch-button",
-		model: {
-			prop: "isEnabled",
-			event: "toggle"
-		},
-		props: {
-			isEnabled: Boolean,
-			color: {
-				type: String,
-				required: false,
-				default: "#4D4D4D",
-			}
-		},
-		methods: {
-			toggle: function() {
-				/*
-							if (!this.isEnabled) {
-								var r = confirm('Do you want to Run?')
-								if (r == true) {
-									this.$emit("toggle", !this.isEnabled)
-								}
-	
-							} else {
-								var r = confirm('Do you want to Stop?')
-								if (r == true) {
-									this.$emit("toggle", !this.isEnabled)
-								}
-							}*/
-
-
-				this.$emit("toggle", !this.isEnabled)
-			}
-		}
-	});
-	export default {
-		name: 'switch-component',
-		data: function() {
-			return {
-				isEnabled : false,
-			}
-		},
-		}
-		var vm = new Vue({
-		  el: '#switch-button',
-		  data: {
-		    message: '123'
-		  }
-		})
+export default {
+  props: ['mode']
+}
 </script>
 
 <style>
-	.switch {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		width: 150px;
-		height: 80px;
-	}
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 
-	#app {
-		font-family: Lato, sans-serif;
-	}
+.toggler {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #15202B;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
 
-	#app .switch-button {
-		margin: 10px 0;
-	}
+.toggler:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background: #FFF;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
 
-	#app .bottom-message {
-		margin-top: 20px;
-		font-size: 125%;
-	}
+input:checked + .toggler {
+  background: #2196F3;
+}
+input:focus + toggler {
+  box-shadow: 0 0 2px #2196F3;
+}
 
-	.switch-button-control {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
+input:checked + .toggler:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
 
-	.switch-button-control .switch-button {
-		height: 1.6em;
-		width: calc(1.6em * 2);
-		border: 2px solid var(--color);
-		box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.33);
-		border-radius: 1.6em;
-		transition: all 0.3s ease-in-out;
-		cursor: pointer;
-	}
-
-	.switch-button-control .switch-button .button {
-		height: calc(1.6em - (2 * 2px));
-		width: calc(1.6em - (2 * 2px));
-		border: 2px solid var(--color);
-		border-radius: calc(1.6em - (2 * 2px));
-		background: var(--color);
-		transition: all 0.3s ease-in-out;
-	}
-
-	.switch-button-control .switch-button.enabled {
-		background-color: var(--color);
-		box-shadow: none;
-	}
-
-	.switch-button-control .switch-button.enabled .button {
-		background: white;
-		transform: translateX(calc(calc(1.6em - (2 * 2px)) + (2 *2px)));
-	}
-
-	.switch-button-control .switch-button-label {
-		margin-left: 10px;
-	}
+.toggler.round {
+  border-radius: 34px;
+}
+.toggler.round:before {
+  border-radius: 50%;
+}
 </style>

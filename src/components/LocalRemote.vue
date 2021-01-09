@@ -1,6 +1,5 @@
 <template>
-	
-	<div class="status" v-if="!(switchValue)">
+	<div class="status" v-if="!(mode === 'run')">
 	  <span class="text">Local</span>
 	</div>
 	<div class="status" v-else>
@@ -9,14 +8,15 @@
 </template>
 
 <script>
+	import SwitchButton from './SwitchButton.vue'
+
 	export default {
-		name: 'switch-component',
-		data: function() {
-			return {
-				switchValue: false
-			}
-		},
+		name: 'app',
+		props: ['mode'],
+		components: {
+			SwitchButton
 		}
+	}
 </script>
 
 <style>

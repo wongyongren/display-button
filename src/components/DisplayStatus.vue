@@ -1,16 +1,16 @@
 <template>
 	<div class="row">
 		<div class="box">
+			<h1>{{ mode }} Mode</h1>
 			<div class="status">
-				<RedGreenCircle />
-				<LocalRemote />
-
+				<RedGreenCircle :mode="mode" @toggle="toggle" />
+				<RunStop :mode="mode" @toggle="toggle" />
 			</div>
 			<div class="status">
-				<RedGreenCircle />
-				<RunStop />
+				<RedGreenCircle :mode="mode" @toggle="toggle" />
+				<LocalRemote :mode="mode" @toggle="toggle" />
 			</div>
-			<SwitchButton />
+			<SwitchButton :mode="mode" @toggle="toggle" />
 		</div>
 
 
@@ -26,12 +26,34 @@
 	import SwitchButton from './SwitchButton.vue'
 
 	export default {
-		name: 'switch-component',
+		name: 'app',
+		data () {
+		  return {
+		    mode: 'stop'
+		  }
+		},
 		components: {
 			LocalRemote,
 			RedGreenCircle,
 			RunStop,
 			SwitchButton
+		},
+		created () {
+		  window.addEventListener('keyup', this.keyPress)
+		},
+		methods: {
+		  keyPress (e) {
+		    if (e.key === '') {
+		      this.toggle()
+		    }
+		  },
+		  toggle () {
+		    if (this.mode === "stop") {
+		      this.mode = "run"
+		    } else {
+		      this.mode = "stop"
+		    }
+		  }
 		}
 	}
 </script>
